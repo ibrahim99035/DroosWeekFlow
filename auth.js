@@ -35,9 +35,6 @@ router.post('/login', async (req, res) => {
   
       const user = rows[0];
       const isPasswordValid = await bcrypt.compare(password, user.password);
-      console.log(password);
-      console.log(user.password);
-      console.log(isPasswordValid);
 
       if (isPasswordValid) {
         const token = jwt.sign({ username: user.username, id: user.id }, 'your_secret_key');
@@ -77,11 +74,7 @@ router.post('/reset-password', async (req, res) => {
 
 // Logout Route
 router.post('/logout', (req, res) => {
-    // A logout route can be implemented as a client-side action.
-    // Since tokens are stateless, there's no server-side session to destroy.
-    // The client should simply discard the token.
-  
-    res.json({ message: 'Logout successful' });
+  res.json({ message: 'Logout successful' });
 });
 
 module.exports = router;

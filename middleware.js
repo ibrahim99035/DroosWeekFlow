@@ -1,5 +1,5 @@
-// authMiddleware.js
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization'];
@@ -18,4 +18,17 @@ const authenticateToken = (req, res, next) => {
     });
 };  
 
-module.exports = { authenticateToken };
+// Replace these with your actual email service credentials
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'ebrahimaboeita990@gmail.com',
+    pass: 'your-email-password'
+  }
+});
+
+function generateToken() {
+  return Math.random().toString(36).substr(2);
+}
+
+module.exports = { authenticateToken, generateToken, transporter };
